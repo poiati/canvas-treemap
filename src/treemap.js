@@ -31,8 +31,9 @@ var treemap = (function() {
 
       return _that
     },
+    
     item: function(spec) {
-      var _that = {},
+      var _that  = {},
           _outer = this
       
       function _init() {
@@ -48,6 +49,23 @@ var treemap = (function() {
       _that.toString = _toString
       _init()
       
+      return _that
+    },
+    
+    layout: function(spec) {
+      var _that  = {},
+          _outer = this
+          
+      function _init() {
+        if (!spec || !spec.type) {
+          throw {
+            
+          }
+        }
+        _that.type = spec.type
+      }
+      
+      _init()
       return _that
     }
   }
