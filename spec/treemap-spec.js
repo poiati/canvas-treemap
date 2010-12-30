@@ -57,6 +57,7 @@ describe('treemap', function() {
           beginPath: function() {},
           rect: function() { totalRects++ },
           fill: function() {}
+          fillText: function() {}
         }
       }
     }

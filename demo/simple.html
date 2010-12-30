@@ -26,9 +26,10 @@
         var items = []
         
         for (var i = 0; i < 50; i++) {
+          var size = Math.round(Math.random() * 100)
           items.push(treemap.item({
-            order: i + 1, 
-            size: Math.round(Math.random() * 100)
+            size: size,
+            title: size
           }))
         }
 

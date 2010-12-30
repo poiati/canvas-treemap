@@ -6,10 +6,19 @@ var treemap = (function() {
           _data,
           _layout
       
-      function _applyStyle(ctx) {
-        var rand = function() { return Math.round(Math.random() * 255) }
-        var r = rand(), g = rand(), b = rand()
-        ctx.fillStyle = 'rgb(' + r + ', ' + g + ', ' + b + ')'
+      var style = {
+        rect: {
+          fill: function() {
+            var rand = function() { return Math.round(Math.random() * 255) }
+            var r = rand(), g = rand(), b = rand()
+            return 'rgb(' + r + ', ' + g + ', ' + b + ')'
+          }
+        },
+        title: {
+          fill: function() { return 'rgb(0, 0, 0)' },
+          font: function() { return 'bold 12px sans-serif'},
+          margin: 2
+        }
       }
       
       function _init() {
@@ -33,8 +42,18 @@ var treemap = (function() {
       function _drawItem(ctx, item) {
         ctx.beginPath()
         ctx.rect(item.bounds.x, item.bounds.y, item.bounds.w, item.bounds.h)
-        _applyStyle(ctx)
+        ctx.fillStyle = style.rect.fill()
         ctx.fill()
+        _drawTitle(ctx, item)
+      }
+      
+      function _drawTitle(ctx, item) {
+        ctx.textBaseline = "top"
+        ctx.font = style.title.font()
+        ctx.fillStyle = style.title.fill()
+        ctx.fillText(item.title, 
+                     item.bounds.x + style.title.margin, 
+                     item.bounds.y + style.title.margin, item.bounds.w)
       }
       
       function _drawTo(canvas) {
@@ -90,12 +109,12 @@ var treemap = (function() {
       
       function _init() {
         _that.size   = spec.size
-        _that.order  = spec.order
+        _that.title  = spec.title
         _that.bounds = _outer.rect()
       }
       
       function _toString() {
-        return 'item [size: ' + _that.size + ', order: ' + _that.order + ', bounds: ' + _that.bounds + ']'
+        return 'item [size: ' + _that.size + ', title: ' + _that.title + ', bounds: ' + _that.bounds + ']'
       }
       
       _that.toString = _toString
@@ -144,13 +163,9 @@ var treemap = (function() {
       }
       
       function _slice(items, start, end, bounds, orientation, order) {
-        console.log('s ' + start)
-        console.log('e ' + end)
         var total    = _totalSize(items, start, end),
             a        = 0,
             vertical = (orientation === VERTICAL)
-        
-        console.log('slice')
         
         for (var i = start; i <= end; i++) {
           var item = items[i],
@@ -209,10 +224,8 @@ var treemap = (function() {
               _apply(items, _outer.rect({x: x, y: y + h * b, w: w, h: h * (1 - b)}), mid + 1, end)
             } else {
               while (mid <= end) {
-                console.log(w + " " + h + " " + a + " " + b)
                 var aspect = _normAspect(w, h, a, b),
                     q      = items[mid].size / total
-                console.log("aspect " + aspect)
                 if (_normAspect(w, h, a, b + q) > aspect) break
                 mid++
                 b += q
@@ -238,7 +251,6 @@ var treemap = (function() {
           return _that
         }
       }
-            
       _outer.layout.totalSize = _totalSize
       _outer.layout.sortDescending = _sortDescending
       _outer.layout.layoutBest = _layoutBest

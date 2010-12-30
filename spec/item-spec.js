@@ -4,14 +4,14 @@ describe('item', function() {
   
   beforeEach(function() {
     i = treemap.item({
-      order: 1,
-      size: 10
+      size: 10,
+      title: 'foo'
     })
   })
   
   it('should print a human readable string representation', function() {
     var emptyRectDesc = treemap.rect().toString()
-    expect(i.toString()).toEqual('item [size: 10, order: 1, bounds: ' + emptyRectDesc + ']')
+    expect(i.toString()).toEqual('item [size: 10, title: foo, bounds: ' + emptyRectDesc + ']')
   })
   
 })
