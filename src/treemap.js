@@ -15,8 +15,11 @@ var treemap = (function() {
           }
         },
         title: {
-          fill: function() { return 'rgb(0, 0, 0)' },
-          font: function() { return 'bold 12px sans-serif'},
+          fill: function()  { return 'rgb(0, 0, 0)' },
+          font: function(w) { 
+            var fontSize = w / 7
+            return 'bold ' + (fontSize < 8 ? 10 : fontSize) + 'px sans-serif'
+          },
           margin: 2
         }
       }
@@ -49,7 +52,7 @@ var treemap = (function() {
       
       function _drawTitle(ctx, item) {
         ctx.textBaseline = "top"
-        ctx.font = style.title.font()
+        ctx.font = style.title.font(item.bounds.w)
         ctx.fillStyle = style.title.fill()
         ctx.fillText(item.title, 
                      item.bounds.x + style.title.margin, 
