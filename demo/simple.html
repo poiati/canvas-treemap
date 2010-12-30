@@ -25,10 +25,10 @@
         
         var items = []
         
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < 50; i++) {
           items.push(treemap.item({
             order: i + 1, 
-            size: 10//Math.round(Math.random() * 100)
+            size: Math.round(Math.random() * 100)
           }))
         }
 
@@ -41,11 +41,14 @@
         
         graph.drawTo(canvas)
         
+        function _updateSize() {
+          var w = document.body.offsetWidth, h = document.body.offsetHeight
+          graph.width   = w; graph.height  = h
+          canvas.width  = w; canvas.height = h
+        }
+        
         window.onresize = function(e) {
-          graph.width   = document.body.offsetWidth
-          graph.height  = document.body.offsetHeight
-          canvas.width  = document.body.offsetWidth
-          canvas.height = document.body.offsetHeight
+          _updateSize()
           graph.drawTo(canvas)
         }
       }
