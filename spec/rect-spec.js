@@ -33,4 +33,13 @@ describe('rect', function() {
   it('should print a human readable string representation', function() {
     expect(r.toString()).toEqual("rect [x: 0, y: 0, w: 10, h: 10]")
   })
+  
+  it('should initialize with correct default values', function() {
+    var r = treemap.rect()
+    
+    expect(r.x).toEqual(0)
+    expect(r.y).toEqual(0)
+    expect(r.w).toEqual(1)
+    expect(r.h).toEqual(1)
+  })
 })
