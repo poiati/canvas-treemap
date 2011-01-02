@@ -1,7 +1,11 @@
 <html>
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>canvas-treemap simple demo</title>
+    <meta name="description" content="Canvas Treemap" /> 
+    <meta name="keywords" content="treemap, canvas, canvas-treemap" /> 
+    <meta name="robots" content="index,follow" /> 
+    <meta name="author" content="Paulo Poiati" />
+    <title>Canvas Treemap Demo</title>
     <style type="text/css" media="screen">
       * {
         margin:  0;
@@ -12,6 +16,31 @@
         width: 100%;
         height: 100%;
       }
+      
+      canvas#example {
+        z-index: 1;
+      }
+      
+      div#banner {
+        font-weight: bold;
+        padding-top: 10px;
+        color: white;
+        text-align: center;
+        position: fixed;
+        bottom: 40px;
+        left: 0px;
+        background-color: black;
+        width: 100%;
+        height: 30px;
+        z-index: 2;
+        opacity:0.7;
+      }
+      
+      a, a:hover, a:visited {
+        text-decoration: none;
+        color: white;
+      }
+      
     </style>
     <script type="text/javascript" src="../src/treemap.js" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
@@ -56,6 +85,10 @@
     </script>
   </head>
   <body onload="init()">
-    <canvas width="0" height="0" id="example"/>
+    <div id="banner">
+      <span>More on </span>
+      <a target="_blank" href="https://github.com/poiati/canvas-treemap">https://github.com/poiati/canvas-treemap</a>
+    </div>
+    <canvas id="example" width="0" height="0"/>
   </body>
 </html>
