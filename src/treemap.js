@@ -47,6 +47,7 @@ var treemap = (function() {
         ctx.rect(item.bounds.x, item.bounds.y, item.bounds.w, item.bounds.h)
         ctx.fillStyle = style.rect.fill()
         ctx.fill()
+        ctx.stroke()
         _drawTitle(ctx, item)
       }
       

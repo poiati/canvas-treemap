@@ -1,6 +1,6 @@
 describe('treemap', function() {
+  
   it('should throw error because of invalid args', function() {
-    
     var items = []
     
     expect(function() {
@@ -56,7 +56,8 @@ describe('treemap', function() {
           },
           beginPath: function() {},
           rect: function() { totalRects++ },
-          fill: function() {}
+          fill: function() {},
+          stroke: function() {},
           fillText: function() {}
         }
       }
