@@ -26,7 +26,7 @@ var treemap = (function() {
       
       function _init() {
         if (!spec.data) throw new Error('data argument is mandatory')
-        _data   = spec.data
+        _data   = _.clone(spec.data)
         _layout = _outer.layout({ type: spec.layout })
         _that.width  = spec.width
         _that.height = spec.height
@@ -34,12 +34,6 @@ var treemap = (function() {
       
       function _prepareData() {
         _layout.apply(_data, _outer.rect({ x: 0, y: 0, w: _that.width, h: _that.height }))
-      }
-      
-      function _eachItem(fn) {
-        for (var i = 0; i < _data.length; i++) {
-          fn(_data[i])
-        }
       }
       
       function _drawItem(ctx, item) {
@@ -64,9 +58,7 @@ var treemap = (function() {
         _prepareData()
         var ctx = canvas.getContext('2d')
         ctx.clearRect(0, 0, _that.width, _that.height)
-        _eachItem(function(item) {
-          _drawItem(ctx, item)
-        })
+        _.each(_data, _.bind(_drawItem, {}, ctx))
       }
       
       _that.drawTo = _drawTo
