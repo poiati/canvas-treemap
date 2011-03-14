@@ -8,10 +8,10 @@ var treemap = (function() {
       
       var style = {
         rect: {
-          fill: function() {
+          fill: function(item) {
             var rand = function() { return Math.round(Math.random() * 255) }
             var r = rand(), g = rand(), b = rand()
-            return 'rgb(' + r + ', ' + g + ', ' + b + ')'
+            return 'rgb(' + item.color.r + ', ' + item.color.g + ', ' + item.color.b + ')'
           }
         },
         title: {
@@ -39,7 +39,7 @@ var treemap = (function() {
       function _drawItem(ctx, item) {
         ctx.beginPath()
         ctx.rect(item.bounds.x, item.bounds.y, item.bounds.w, item.bounds.h)
-        ctx.fillStyle = style.rect.fill()
+        ctx.fillStyle = style.rect.fill(item)
         ctx.fill()
         ctx.stroke()
         _drawTitle(ctx, item)
@@ -106,11 +106,17 @@ var treemap = (function() {
       function _init() {
         _that.size   = spec.size
         _that.title  = spec.title
+        _that.color  = spec.color ? _.clone(spec.color) : _assignRandomColor()
         _that.bounds = _outer.rect()
       }
       
       function _toString() {
         return 'item [size: ' + _that.size + ', title: ' + _that.title + ', bounds: ' + _that.bounds + ']'
+      }
+      
+      function _assignRandomColor() {
+        var rand = function() { return Math.round(Math.random() * 255) }
+        return { r: rand(), g: rand(), b: rand() }
       }
       
       _that.toString = _toString
